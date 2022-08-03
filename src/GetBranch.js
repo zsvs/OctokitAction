@@ -43,8 +43,8 @@ class CreateBranch{
                 ref: `heads/${mainBranch}`
             });
 
-            this.info(`Status: ${MainBranchSHA.status}`)
-            return MainBranchSHA.status
+            this.info(`Status: ${MainBranchSHA.status}`);
+            return MainBranchSHA.status.toString()
 
         } catch (error) {
             throw error;
