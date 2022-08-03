@@ -101,7 +101,7 @@ class CreateBranch{
                 repo: repo,
                 branch: targetBranch
                     });
-            this.info(`Branch ${targetBranch} status: ${BranchStatus}`)
+            this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`)
 
             return BranchStatus.status;
         } catch (error) {
