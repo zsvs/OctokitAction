@@ -23,8 +23,13 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
-            this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`)
+            if (this.CheckBranch() == 200) {
+                this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`)
+                return `Branch ${this.inputs.TARGET_BRANCH} is already exists`
+            } else {
+                this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
+                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
+            }
         } catch (error) {
             throw console.error();
         }
@@ -84,6 +89,25 @@ class CreateBranch{
         } catch (error) {
             throw error;
         }
+    };
+
+    async CheckBranch() {
+        try {
+            const owner = this.inputs.OWNER;
+            const repo =  this.inputs.REPO;
+            const targetBranch = this.inputs.TARGET_BRANCH;
+            let BranchStatus = await octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
+                owner: owner,
+                repo: repo,
+                branch: targetBranch
+                    });
+            this.info(`Branch ${targetBranch} status: ${BranchStatus}`)
+
+            return BranchStatus;
+        } catch (error) {
+            throw error;
+        }
+
     }
 }
 
