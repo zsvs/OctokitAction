@@ -11,6 +11,9 @@ inputs:
   github_tkn:
     requred: true
     type: string
+  file:
+    requred: true
+    type: string
   owner:
     requred: true
     type: string

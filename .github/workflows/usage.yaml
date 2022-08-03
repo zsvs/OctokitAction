@@ -39,6 +39,7 @@ jobs:
       with:
         repo: ${{ inputs.repo }}
         owner: ${{ inputs.owner }}
+        file: ${{ inputs.file }}
         target_branch: ${{ inputs.target_branch }}
         main_branch: ${{ inputs.main_branch }}
         github_tkn: ${{ secrets.GITHUB_TOKEN }}
