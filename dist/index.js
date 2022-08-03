@@ -8873,15 +8873,22 @@ class CreateBranch{
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const mainBranch = this.inputs.MAIN_BRANCH;
-
+            const targetBranch = this.inputs.TARGET_BRANCH
             let MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
                 owner: owner,
                 repo: repo,
                 ref: `heads/${mainBranch}`
             });
 
-            this.info(`Status: ${MainBranchSHA.status}`);
-            return MainBranchSHA.status.toString()
+            let NewBranchCreation = await this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
+                owner: owner,
+                repo: repo,
+                ref: `refs/heads/${targetBranch}`,
+                sha: MainBranchSHA.data.object.sha
+            });
+
+            this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
+            return NewBranchCreation.ref
 
         } catch (error) {
             throw error;
