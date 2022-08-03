@@ -2,8 +2,24 @@
 
 on:
   workflow_dispatch:
+    inputs:
+      repo:
+      requred: true
+      type: string
+    main_branch:
+      requred: true
+      type: string
+    github_tkn:
+      requred: true
+      type: string
+    owner:
+      requred: true
+      type: string
+    target_branch:
+      requred: true
+      type: string
 
-jobs:
+  jobs:
 
   TestOctokit:
     runs-on: ubuntu-latest
