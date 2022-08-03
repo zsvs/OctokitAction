@@ -8,7 +8,8 @@ const CreateBranch = require("./GetBranch");
             OWNER: core.getInput("owner").trim(),
             GITHUB_TKN: core.getInput("github_tkn").trim(),
             MAIN_BRANCH: core.getInput("main_branch").trim(),
-            TARGET_BRANCH: core.getInput("target_branch").trim()
+            TARGET_BRANCH: core.getInput("target_branch").trim(),
+            FILE: core.getInput("file").trim()
         };
 
         const actionOcto = new CreateBranch();

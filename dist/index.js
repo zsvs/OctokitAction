@@ -8861,9 +8861,10 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`)
+            this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
+            this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`)
         } catch (error) {
-
+            throw console.error();
         }
     };
 
@@ -8873,7 +8874,7 @@ class CreateBranch{
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const mainBranch = this.inputs.MAIN_BRANCH;
-            const targetBranch = this.inputs.TARGET_BRANCH
+            const targetBranch = this.inputs.TARGET_BRANCH;
             let MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
                 owner: owner,
                 repo: repo,
@@ -8895,6 +8896,33 @@ class CreateBranch{
             throw error;
         }
     };
+
+    async CreateFile() {
+        try {
+
+            const owner = this.inputs.OWNER;
+            const repo =  this.inputs.REPO;
+            const mainBranch = this.inputs.MAIN_BRANCH;
+            const targetBranch = this.inputs.TARGET_BRANCH;
+            const file = this.inputs.FILE;
+
+            let FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+                owner: owner,
+                repo: repo,
+                path: file,
+                message: 'my commit message',
+                committer: {
+                  name: 'zsvs',
+                  email: 'stepanezc@gmail.com'
+                },
+                content: 'bXkgbmV3IGZpbGUgY29udGVudHM='
+              });
+            this.info(`File path: ${FileCreated.data.content.path}`);
+            return FileCreated.data.commit.sha
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = CreateBranch;
@@ -9080,7 +9108,8 @@ const CreateBranch = __nccwpck_require__(3906);
             OWNER: core.getInput("owner").trim(),
             GITHUB_TKN: core.getInput("github_tkn").trim(),
             MAIN_BRANCH: core.getInput("main_branch").trim(),
-            TARGET_BRANCH: core.getInput("target_branch").trim()
+            TARGET_BRANCH: core.getInput("target_branch").trim(),
+            FILE: core.getInput("file").trim()
         };
 
         const actionOcto = new CreateBranch();

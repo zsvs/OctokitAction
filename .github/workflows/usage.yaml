@@ -11,6 +11,9 @@ on:
         requred: true
         type: string
         default: main
+      file:
+        requred: true
+        type: string
       owner:
         requred: true
         type: string
