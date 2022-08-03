@@ -49,8 +49,9 @@ class CreateBranch{
                 sha: MainBranchSHA.data.object.sha
             });
 
-            this.warning(`HTTP status of main branch: ${MainBranchSHA.status}`);
-            this.warning(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
+            this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
+            this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
+            this.info(`Ref of new branch: ${NewBranchCreation.ref}`)
             return NewBranchCreation.ref
 
         } catch (error) {
