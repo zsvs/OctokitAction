@@ -24,7 +24,7 @@ class CreateBranch{
     async run() {
         try {
             let res = this.CreateBranch();
-            this.notice(`SHA of main branch: ${res}`)
+            this.warning(`SHA of main branch: ${res}`)
         } catch (error) {
 
         }
@@ -43,11 +43,8 @@ class CreateBranch{
                 ref: `heads/${mainBranch}`
             });
 
-            let SHA = [];
-            MainBranchSHA.data.forEach(element => {
-                SHA.push(element.object.sha)
-            });
-            return SHA
+
+            return MainBranchSHA.status
 
         } catch (error) {
             throw error;
