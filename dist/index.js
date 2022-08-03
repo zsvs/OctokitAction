@@ -8861,7 +8861,7 @@ class CreateBranch{
 
     async run() {
         try {
-            if (this.CheckBranch() == 200) {
+            if ((await this.CheckBranch()).toString() == "200") {
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`)
                 return `Branch ${this.inputs.TARGET_BRANCH} is already exists`
             } else {
@@ -8941,7 +8941,7 @@ class CreateBranch{
                     });
             this.info(`Branch ${targetBranch} status: ${BranchStatus}`)
 
-            return BranchStatus;
+            return BranchStatus.status;
         } catch (error) {
             throw error;
         }
