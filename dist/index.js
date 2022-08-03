@@ -8861,7 +8861,8 @@ class CreateBranch{
 
     async run() {
         try {
-
+            let res = this.CreateBranch();
+            this.notice(`SHA of main branch: ${res}`)
         } catch (error) {
 
         }
