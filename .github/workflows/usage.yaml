@@ -1,4 +1,4 @@
-﻿name: 'Build and push application image'
+﻿name: 'Get refs and update repo'
 
 on:
   workflow_dispatch:
