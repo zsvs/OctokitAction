@@ -10,6 +10,7 @@ on:
       main_branch:
         requred: true
         type: string
+        default: main
       owner:
         requred: true
         type: string
@@ -17,6 +18,7 @@ on:
       target_branch:
         requred: true
         type: string
+        default: test
 
 jobs:
 
@@ -35,5 +37,5 @@ jobs:
         repo: ${{ inputs.repo }}
         owner: ${{ inputs.owner }}
         target_branch: ${{ inputs.target_branch }}
-        main_branch: $ {{ inputs.main_branch }}
+        main_branch: ${{ inputs.main_branch }}
         github_tkn: ${{ secrets.GITHUB_TOKEN }}
