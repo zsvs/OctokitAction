@@ -4,6 +4,7 @@
   "description": "",
   "main": "GetBranch.js",
   "scripts": {
+    "build": "ncc build src/index.js --source-map --license licenses.txt --out dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
