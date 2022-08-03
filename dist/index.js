@@ -8881,7 +8881,7 @@ class CreateBranch{
                 ref: `heads/${mainBranch}`
             });
 
-
+            this.info(`Status: ${MainBranchSHA.status}`)
             return MainBranchSHA.status
 
         } catch (error) {
