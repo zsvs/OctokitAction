@@ -19,6 +19,6 @@ jobs:
       with:
         repo: OctokitAction
         owner: zsvs
-        target_branch: test
+        target_branch: test_anastasia
         main_branch: main
         github_tkn: ${{ secrets.GITHUB_TOKEN }}
