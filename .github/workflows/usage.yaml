@@ -4,20 +4,22 @@ on:
   workflow_dispatch:
     inputs:
       repo:
-      requred: true
-      type: string
-    main_branch:
-      requred: true
-      type: string
-    github_tkn:
-      requred: true
-      type: string
-    owner:
-      requred: true
-      type: string
-    target_branch:
-      requred: true
-      type: string
+        requred: true
+        type: string
+        default: OctokitAction
+      main_branch:
+        requred: true
+        type: string
+      github_tkn:
+        requred: true
+        type: string
+      owner:
+        requred: true
+        type: string
+        default: zsvs
+      target_branch:
+        requred: true
+        type: string
 
   jobs:
 
@@ -33,8 +35,8 @@ on:
     - name: Get Branch with octo
       uses: zsvs/OctokitAction@main
       with:
-        repo: OctokitAction
-        owner: zsvs
-        target_branch: test_anastasia_1
-        main_branch: main
+        repo: ${{ inputs.repo }}
+        owner: ${{ inputs.owner }}
+        target_branch: ${{ inputs.target_branch }}
+        main_branch: $ {{ inputs.main_branch }}
         github_tkn: ${{ secrets.GITHUB_TOKEN }}
