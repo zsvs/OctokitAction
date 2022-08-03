@@ -10,9 +10,6 @@ on:
       main_branch:
         requred: true
         type: string
-      github_tkn:
-        requred: true
-        type: string
       owner:
         requred: true
         type: string
