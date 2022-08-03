@@ -23,7 +23,7 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`ref of main branch: ${this.CreateBranch()}`)
+            this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`)
         } catch (error) {
 
         }
@@ -51,7 +51,7 @@ class CreateBranch{
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
             this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
-            return NewBranchCreation.data.ref.toString()
+            return NewBranchCreation.data.ref
 
         } catch (error) {
             throw error;
