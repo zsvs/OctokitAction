@@ -8902,7 +8902,6 @@ class CreateBranch{
 
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
-            const mainBranch = this.inputs.MAIN_BRANCH;
             const targetBranch = this.inputs.TARGET_BRANCH;
             const file = this.inputs.FILE;
 
@@ -8910,6 +8909,7 @@ class CreateBranch{
                 owner: owner,
                 repo: repo,
                 path: file,
+                branch: targetBranch,
                 message: 'my commit message',
                 committer: {
                   name: 'zsvs',
