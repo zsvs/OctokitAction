@@ -23,7 +23,7 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`SHA of main branch: ${this.CreateBranch()}`)
+            this.warning(`SHA of main branch: ${(await this.CreateBranch()).toString()}`)
         } catch (error) {
 
         }
