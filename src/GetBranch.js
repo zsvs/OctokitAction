@@ -23,6 +23,7 @@ class CreateBranch{
 
     async run() {
         try {
+            this.warning(`Status: ${(await this.CheckBranch()).toString()}`)
             if ((await this.CheckBranch()).toString() == "200") {
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`)
                 return `Branch ${this.inputs.TARGET_BRANCH} is already exists`
