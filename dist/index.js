@@ -8861,7 +8861,7 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`Status: ${this.CheckBranch().toString()}`);
+            this.warning(`Status: ${(await this.CheckBranch()).toString()}`);
             if ((await this.CheckBranch()).toString() != "200") {
                 this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
