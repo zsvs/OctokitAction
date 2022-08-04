@@ -8940,7 +8940,7 @@ class CreateBranch{
     async GetListBranches() {
         const owner = this.inputs.OWNER;
         const repo =  this.inputs.REPO;
-        let ListBranches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
+        let ListBranches = await this.octokit.request('GET /repos/{owner}/{repo}/branches', {
             owner: owner,
             repo: repo
           });
