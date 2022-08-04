@@ -8953,7 +8953,7 @@ class CreateBranch{
             branches.push(element.name)
         });
         this.info(`List of branches: ${ListBranches.name}`)
-        return branches;
+        return branches.toString();
     };
 
     async CheckBranch() {
