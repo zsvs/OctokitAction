@@ -8878,7 +8878,6 @@ class CreateBranch{
 
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
-            const mainBranch = this.inputs.MAIN_BRANCH;
             const targetBranch = this.inputs.TARGET_BRANCH;
             let MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
                 owner: owner,
