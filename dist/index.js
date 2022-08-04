@@ -8871,12 +8871,9 @@ class CreateBranch{
             //     return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
             // }
             // let ListBr = await this.GetListBranches();
-            this.warning(`List of branches ${(await this.GetListBranches())[0]}`);
-
-            (await this.GetListBranches()).forEach(element => {
-                this.info(element.name);
-            });
-
+            this.warning(`List of branches ${(await this.GetListBranches())}`);
+            const NewList = await this.GetListBranches();
+            this.warning(`Branches is: ${NewList}`);
         } catch (error) {
             throw error;
         }
