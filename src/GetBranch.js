@@ -26,20 +26,14 @@ class CreateBranch{
             this.warning(`List of branches ${await this.GetListBranches()}`);
             const NewList = await this.GetListBranches();
             this.warning(`Branches is: ${NewList}`);
+
             if (NewList.includes(this.inputs.TARGET_BRANCH)){
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
             } else {
-                this.warning("Start Creating branch");
+                this.info("Start Creating branch");
+                this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
+                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             }
-            // if ((await this.CheckBranch()).status != 200) {
-            //
-            //     this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
-            //     this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
-            // } else {
-            //
-            //     return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
-            // }
-            // let ListBr = await this.GetListBranches();
 
         } catch (error) {
             throw error;
