@@ -23,12 +23,12 @@ class CreateBranch{
 
     async run() {
         try {
-            if (this.CheckBranch() == "200") {
+            if ((await this.CheckBranch()).toString() == "200") {
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`)
                 return `Branch ${this.inputs.TARGET_BRANCH} is already exists`
             } else {
-                this.warning(`ref of main branch: ${this.CreateBranch()}`);
-                this.warning(`sha of created file: ${this.CreateFile()}`);
+                this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
+                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             }
         } catch (error) {
             throw error;
@@ -61,7 +61,7 @@ class CreateBranch{
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
             this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
-            return NewBranchCreation.data.ref.toString()
+            return NewBranchCreation.data.ref
 
         } catch (error) {
             throw error;
@@ -89,7 +89,7 @@ class CreateBranch{
                 content: 'bXkgbmV3IGZpbGUgY29udGVudHM='
               });
             this.info(`File path: ${FileCreated.data.content.path}`);
-            return FileCreated.data.commit.sha.toString()
+            return FileCreated.data.commit.sha
         } catch (error) {
             throw error;
         }
@@ -106,7 +106,7 @@ class CreateBranch{
                     });
             this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`)
 
-            return (BranchStatus.status).toString();
+            return BranchStatus.status;
 
 
     };
