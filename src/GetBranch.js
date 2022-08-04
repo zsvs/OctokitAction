@@ -31,7 +31,7 @@ class CreateBranch{
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             }
         } catch (error) {
-            throw console.error();
+            throw error;
         }
     };
 
