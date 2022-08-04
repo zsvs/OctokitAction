@@ -114,7 +114,7 @@ class CreateBranch{
         ListBranches.data.forEach(element => {
             branches.push(element.name)
         });
-        this.info(`List of branches: ${ListBranches.name}`)
+        this.info(`List of branches: ${branches.toString}`)
         return branches.toString();
     };
 
