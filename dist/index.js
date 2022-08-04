@@ -8871,7 +8871,7 @@ class CreateBranch{
             //     return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
             // }
             // let ListBr = await this.GetListBranches();
-            this.warning(`List of branches ${(await this.GetListBranches())}`);
+            this.warning(`List of branches ${await this.GetListBranches()}`);
             const NewList = await this.GetListBranches();
             this.warning(`Branches is: ${NewList}`);
         } catch (error) {
@@ -8951,7 +8951,7 @@ class CreateBranch{
         ListBranches.data.forEach(element => {
             branches.push(element.name)
         });
-        this.info(`List of branches: ${branches.toString}`)
+        this.info(`List of branches: ${branches}`)
         return branches;
     };
 
