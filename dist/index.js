@@ -8896,7 +8896,7 @@ class CreateBranch{
             });
 
 
-            let NewBranchCreation = octokit.rest.git.createRef({
+            let NewBranchCreation = this.octokit.rest.git.createRef({
                 owner: owner,
                 repo: repo,
                 ref: `refs/heads/${targetBranch}`,
