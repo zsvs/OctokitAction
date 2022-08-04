@@ -8862,14 +8862,16 @@ class CreateBranch{
     async run() {
         try {
 
-            if ((await this.CheckBranch()).status != 200) {
-                this.warning("Start Creating branch");
-                this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
-                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
-            } else {
-                this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
-                return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
-            }
+            // if ((await this.CheckBranch()).status != 200) {
+            //     this.warning("Start Creating branch");
+            //     this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
+            //     this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
+            // } else {
+            //     this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
+            //     return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
+            // }
+            let ListBr = await this.GetListBranches();
+            this.warning(`List of branches ${ListBr}`);
         } catch (error) {
             throw error;
         }
@@ -8935,9 +8937,18 @@ class CreateBranch{
         }
     };
 
+    async GetListBranches() {
+        const owner = this.inputs.OWNER;
+        const repo =  this.inputs.REPO;
+        let ListBranches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
+            owner: owner,
+            repo: repo
+          });
+        return ListBranches.name;
+    };
+
     async CheckBranch() {
-            const owner = this.inputs.OWNER;
-            const repo =  this.inputs.REPO;
+
             const targetBranch = this.inputs.TARGET_BRANCH;
             let BranchStatus = await this.octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
                 owner: owner,
