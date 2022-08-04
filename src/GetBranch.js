@@ -99,7 +99,6 @@ class CreateBranch{
     };
 
     async CheckBranch() {
-        try {
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
@@ -108,12 +107,8 @@ class CreateBranch{
                 repo: repo,
                 branch: targetBranch
                     });
-            this.info(`Branch ${targetBranch} status: ${BranchStatus}`);
+            this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`);
             return BranchStatus;
-
-        } catch (error) {
-            throw error;
-        }
 
     };
 }
