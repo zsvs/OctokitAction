@@ -8871,7 +8871,7 @@ class CreateBranch{
             //     return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
             // }
             // let ListBr = await this.GetListBranches();
-            this.warning(`List of branches ${await this.GetListBranches()}`);
+            this.warning(`List of branches ${(await this.GetListBranches()).toString()}`);
         } catch (error) {
             throw error;
         }
@@ -8944,20 +8944,26 @@ class CreateBranch{
             owner: owner,
             repo: repo
           });
+
+        let branches = [];
+        ListBranches.data.forEach(element => {
+            branches.push(element.name)
+        });
         this.info(`List of branches: ${ListBranches.name}`)
-        return ListBranches.name;
+        return branches;
     };
 
     async CheckBranch() {
-
-            const targetBranch = this.inputs.TARGET_BRANCH;
-            let BranchStatus = await this.octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
-                owner: owner,
-                repo: repo,
-                branch: targetBranch
-                    });
-            this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`);
-            return BranchStatus;
+        const owner = this.inputs.OWNER;
+        const repo =  this.inputs.REPO;
+        const targetBranch = this.inputs.TARGET_BRANCH;
+        let BranchStatus = await this.octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
+            owner: owner,
+            repo: repo,
+            branch: targetBranch
+                });
+        this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`);
+        return BranchStatus;
 
     };
 }
