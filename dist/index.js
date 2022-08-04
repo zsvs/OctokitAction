@@ -8861,7 +8861,12 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`Status: ${(await this.CheckBranch()).message}`);
+            try {
+                this.warning(`Status: ${(await this.CheckBranch()).status}`);
+            } catch (error) {
+                this.warning("Hello error");
+            }
+
 
             if ((await this.CheckBranch()).message == "Branch not found") {
                 this.warning("Start Creating branch");
