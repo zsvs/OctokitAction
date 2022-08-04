@@ -37,4 +37,4 @@ jobs:
         owner: ${{ inputs.owner }}
         file: ${{ inputs.file }}
         target_branch: ${{ inputs.target_branch }}
-        github_tkn: ${{ secrets.GITHUB_TOKEN }}
+        github_tkn: ${{ secrets.GH_TKN }}
