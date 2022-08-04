@@ -8872,8 +8872,12 @@ class CreateBranch{
             // }
             // let ListBr = await this.GetListBranches();
             this.warning(`List of branches ${(await this.GetListBranches())[0]}`);
+
             let NewList = [];
-            NewList.concat(await this.GetListBranches());
+            (await this.GetListBranches()).forEach(element => {
+                NewList.push(element.name)
+            });
+
             this.warning(`NewList contain: ${NewList}`);
         } catch (error) {
             throw error;
