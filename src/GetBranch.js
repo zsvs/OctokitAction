@@ -23,9 +23,9 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`List of branches ${await this.GetListBranches()}`);
+            // this.warning(`List of branches ${await this.GetListBranches()}`);
             const NewList = await this.GetListBranches();
-            this.warning(`Branches is: ${NewList}`);
+            // this.warning(`Branches is: ${NewList}`);
 
             if (NewList.includes(this.inputs.TARGET_BRANCH)){
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
@@ -114,20 +114,6 @@ class CreateBranch{
         });
         this.info(`List of branches: ${branches}`)
         return branches;
-    };
-
-    async CheckBranch() {
-        const owner = this.inputs.OWNER;
-        const repo =  this.inputs.REPO;
-        const targetBranch = this.inputs.TARGET_BRANCH;
-        let BranchStatus = await this.octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
-            owner: owner,
-            repo: repo,
-            branch: targetBranch
-                });
-        this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`);
-        return BranchStatus;
-
     };
 }
 
