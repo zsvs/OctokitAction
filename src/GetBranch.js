@@ -24,7 +24,8 @@ class CreateBranch{
     async run() {
         try {
             try {
-                this.warning(`Status: ${(await this.CheckBranch()).status}`);
+                if ((await this.CheckBranch()).message == "Branch not found")
+                    {this.warning(hello);}
             } catch (error) {
                 this.warning("Hello error");
             }
