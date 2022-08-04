@@ -8865,8 +8865,8 @@ class CreateBranch{
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`)
                 return `Branch ${this.inputs.TARGET_BRANCH} is already exists`
             } else {
-                this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
-                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
+                this.warning(`ref of main branch: ${this.CreateBranch()}`);
+                this.warning(`sha of created file: ${this.CreateFile()}`);
             }
         } catch (error) {
             throw error;
@@ -8895,7 +8895,7 @@ class CreateBranch{
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
             this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
-            return NewBranchCreation.data.ref
+            return (NewBranchCreation.data.ref).toString()
 
         } catch (error) {
             throw error;
@@ -8923,7 +8923,7 @@ class CreateBranch{
                 content: 'bXkgbmV3IGZpbGUgY29udGVudHM='
               });
             this.info(`File path: ${FileCreated.data.content.path}`);
-            return FileCreated.data.commit.sha
+            return (FileCreated.data.commit.sha).toString()
         } catch (error) {
             throw error;
         }
