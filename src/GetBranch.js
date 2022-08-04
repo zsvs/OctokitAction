@@ -23,15 +23,8 @@ class CreateBranch{
 
     async run() {
         try {
-            try {
-                if ((await this.CheckBranch()).message == "Branch not found")
-                    {this.warning(hello);}
-            } catch (error) {
-                this.warning("Hello error");
-            }
 
-
-            if ((await this.CheckBranch()).message == "Branch not found") {
+            if ((await this.CheckBranch()).status != 200) {
                 this.warning("Start Creating branch");
                 this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
