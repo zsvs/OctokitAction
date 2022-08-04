@@ -8861,11 +8861,10 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`Status: ${(await this.CheckBranch()).toString()}`);
+            this.warning(`Status: ${this.CheckBranch()}`);
             if ((await this.CheckBranch()).toString() != "200") {
                 this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
-
             } else {
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
                 return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
