@@ -32,8 +32,8 @@ class CreateBranch{
             //     this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
             //     return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
             // }
-            let ListBr = await this.GetListBranches();
-            this.warning(`List of branches ${ListBr}`);
+            // let ListBr = await this.GetListBranches();
+            this.warning(`List of branches ${await this.GetListBranches()}`);
         } catch (error) {
             throw error;
         }
