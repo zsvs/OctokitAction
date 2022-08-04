@@ -23,9 +23,9 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`Status: ${(await this.CheckBranch()).toString()}`);
+            this.warning(`Status: ${(await this.CheckBranch()).status}`);
 
-            if ((await this.CheckBranch()).toString() != "200") {
+            if ((await this.CheckBranch()).status != 200) {
                 this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             } else {
@@ -107,7 +107,7 @@ class CreateBranch{
                 repo: repo,
                 branch: targetBranch
                     });
-            this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`);
+            this.info(`Branch ${targetBranch} status: ${BranchStatus}`);
             return BranchStatus;
 
         } catch (error) {
