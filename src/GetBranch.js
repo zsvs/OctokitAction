@@ -109,7 +109,7 @@ class CreateBranch{
             return BranchStatus.status;
 
         } catch (error) {
-            return BranchStatus.status;
+            throw error;
         }
 
 
