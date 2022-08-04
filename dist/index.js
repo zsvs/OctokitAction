@@ -8863,7 +8863,7 @@ class CreateBranch{
         try {
             this.warning(`Status: ${(await this.CheckBranch()).message}`);
 
-            if ((await this.CheckBranch()).status != 200) {
+            if ((await this.CheckBranch()).message == "Branch not found") {
                 this.warning("Start Creating branch");
                 this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
