@@ -31,7 +31,7 @@ class CreateBranch{
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
             } else {
                 this.info("Start Creating branch");
-                this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
+                this.warning(`ref of branch: ${await this.CreateBranch()}`);
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             }
 
@@ -56,7 +56,7 @@ class CreateBranch{
                 repo: repo,
                 ref: `heads/${MainBranchName.data.default_branch}`
             });
-
+            this.octokit.rest
 
             let NewBranchCreation = this.octokit.rest.git.createRef({
                 owner: owner,
@@ -73,7 +73,7 @@ class CreateBranch{
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
             this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
-            return NewBranchCreation//.data.ref;
+            return NewBranchCreation.data.ref;
 
         } catch (error) {
             throw error;
