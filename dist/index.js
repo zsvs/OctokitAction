@@ -8911,7 +8911,7 @@ class CreateBranch{
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
             this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
-            return NewBranchCreation.data.ref;
+            return NewBranchCreation//.data.ref;
 
         } catch (error) {
             throw error;
