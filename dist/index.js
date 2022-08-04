@@ -8834,7 +8834,7 @@ function wrappy (fn, cb) {
 /***/ }),
 
 /***/ 3906:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const github = __nccwpck_require__(4778);
 
@@ -8953,7 +8953,7 @@ class CreateBranch{
     };
 }
 
-// module.exports = CreateBranch;
+module.exports = CreateBranch;
 
 
 // const github = require('@actions/github');

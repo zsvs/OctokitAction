@@ -115,7 +115,7 @@ class CreateBranch{
     };
 }
 
-// module.exports = CreateBranch;
+module.exports = CreateBranch;
 
 
 // const github = require('@actions/github');
