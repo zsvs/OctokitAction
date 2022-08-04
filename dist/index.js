@@ -8869,7 +8869,7 @@ class CreateBranch{
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
             } else {
                 this.info("Start Creating branch");
-                this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
+                this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             }
 
