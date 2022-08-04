@@ -8861,7 +8861,7 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`Status: ${(await this.CheckBranch()).status}`);
+            this.warning(`Status: ${(await this.CheckBranch()).message}`);
 
             if ((await this.CheckBranch()).status != 200) {
                 this.warning("Start Creating branch");
