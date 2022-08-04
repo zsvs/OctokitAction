@@ -8834,7 +8834,7 @@ function wrappy (fn, cb) {
 /***/ }),
 
 /***/ 3906:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const github = __nccwpck_require__(4778);
 
@@ -8869,7 +8869,7 @@ class CreateBranch{
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             }
         } catch (error) {
-            throw error;
+            throw console.error();
         }
     };
 
@@ -8939,24 +8939,19 @@ class CreateBranch{
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
             let BranchStatus = await this.octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
-                owner: `${owner}`,
-                repo: `${repo}`,
-                branch: `${targetBranch}`
+                owner: owner,
+                repo: repo,
+                branch: targetBranch
                     });
             this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`)
-            return BranchStatus.status;
 
+            return BranchStatus.status;
         } catch (error) {
             throw error;
         }
 
-
-
-
-    };
+    }
 }
-
-module.exports = CreateBranch;
 
 /***/ }),
 
