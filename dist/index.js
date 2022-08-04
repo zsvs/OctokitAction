@@ -8939,9 +8939,9 @@ class CreateBranch{
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
             let BranchStatus = await this.octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
-                owner: owner,
-                repo: repo,
-                branch: targetBranch
+                owner: `${owner}`,
+                repo: `${repo}`,
+                branch: `${targetBranch}`
                     });
             this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`)
             return BranchStatus;
