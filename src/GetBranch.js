@@ -23,7 +23,7 @@ class CreateBranch{
 
     async run() {
         try {
-            this.warning(`Status: ${(await this.CheckBranch()).status}`);
+            //this.warning(`Status: ${(await this.CheckBranch()).status}`);
 
             if ((await this.CheckBranch()).status != 200) {
                 this.warning(`ref of main branch: ${(await this.CreateBranch()).toString()}`);
