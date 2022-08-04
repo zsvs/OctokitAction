@@ -5,9 +5,6 @@ inputs:
   repo:
     requred: true
     type: string
-  main_branch:
-    requred: true
-    type: string
   github_tkn:
     requred: true
     type: string
