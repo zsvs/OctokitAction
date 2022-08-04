@@ -7,7 +7,6 @@ const CreateBranch = require("./GetBranch");
             REPO: core.getInput("repo").trim(),
             OWNER: core.getInput("owner").trim(),
             GITHUB_TKN: core.getInput("github_tkn").trim(),
-            MAIN_BRANCH: core.getInput("main_branch").trim(),
             TARGET_BRANCH: core.getInput("target_branch").trim(),
             FILE: core.getInput("file").trim()
         };
