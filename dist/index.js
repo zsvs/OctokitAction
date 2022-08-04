@@ -8895,12 +8895,19 @@ class CreateBranch{
                 ref: `heads/${MainBranchName.data.default_branch}`
             });
 
-            let NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
+
+            let NewBranchCreation = octokit.rest.git.createRef({
                 owner: owner,
                 repo: repo,
                 ref: `refs/heads/${targetBranch}`,
-                sha: MainBranchSHA.data.object.sha
+                sha: MainBranchSHA.data.object.sha,
             });
+            // let NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
+            //     owner: owner,
+            //     repo: repo,
+            //     ref: `refs/heads/${targetBranch}`,
+            //     sha: MainBranchSHA.data.object.sha
+            // });
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
             this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
