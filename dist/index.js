@@ -8944,6 +8944,7 @@ class CreateBranch{
             owner: owner,
             repo: repo
           });
+        this.info(`List of branches: ${ListBranches.name}`)
         return ListBranches.name;
     };
 
