@@ -8871,7 +8871,7 @@ class CreateBranch{
                 return `Branch ${this.inputs.TARGET_BRANCH} is already exists`;
             }
         } catch (error) {
-            throw console.error();
+            throw error;
         }
     };
 
@@ -8946,7 +8946,7 @@ class CreateBranch{
                 branch: targetBranch
                     });
             this.info(`Branch ${targetBranch} status: ${BranchStatus.status}`);
-            return BranchStatus.status;
+            return BranchStatus;
 
         } catch (error) {
             throw error;
