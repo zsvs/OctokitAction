@@ -42,10 +42,15 @@ class CreateBranch{
             const repo =  this.inputs.REPO;
             const mainBranch = this.inputs.MAIN_BRANCH;
             const targetBranch = this.inputs.TARGET_BRANCH;
+            let MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
+                owner: owner,
+                repo: repo,
+            });
+
             let MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
                 owner: owner,
                 repo: repo,
-                ref: `heads/${mainBranch}`
+                ref: `heads/${MainBranchName.data.default_branch}`
             });
 
             let NewBranchCreation = await this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
@@ -57,7 +62,7 @@ class CreateBranch{
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
             this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
-            return (NewBranchCreation.data.ref).toString()
+            return NewBranchCreation.data.ref.toString()
 
         } catch (error) {
             throw error;
@@ -85,7 +90,7 @@ class CreateBranch{
                 content: 'bXkgbmV3IGZpbGUgY29udGVudHM='
               });
             this.info(`File path: ${FileCreated.data.content.path}`);
-            return (FileCreated.data.commit.sha).toString()
+            return FileCreated.data.commit.sha.toString()
         } catch (error) {
             throw error;
         }
