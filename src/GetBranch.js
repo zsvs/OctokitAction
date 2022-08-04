@@ -57,7 +57,7 @@ class CreateBranch{
                 ref: `heads/${MainBranchName.data.default_branch}`
             });
 
-            let NewBranchCreation = await this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
+            let NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
                 owner: owner,
                 repo: repo,
                 ref: `refs/heads/${targetBranch}`,
