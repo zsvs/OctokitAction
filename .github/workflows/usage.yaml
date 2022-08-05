@@ -18,6 +18,10 @@ on:
         requred: true
         type: string
         default: test
+      test_input:
+        required: false
+        type: string
+        default: ''
 
 jobs:
 
