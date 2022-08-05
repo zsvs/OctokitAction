@@ -88,7 +88,7 @@ class CreateBranch{
             const targetBranch = this.inputs.TARGET_BRANCH;
             const file = this.inputs.FILE;
             const content = this.inputs.CONTENT;
-
+            this.warning(`Content b64:${Buffer.from(content).toString("base64")}`);
             const refResponse = await this.octokit.request('GET /repos/{owner}/{repo}/contents/{path}{?ref}', {
                 owner: owner,
                 repo: repo,

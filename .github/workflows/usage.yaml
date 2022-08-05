@@ -23,7 +23,7 @@ on:
         type: string
         default: ''
       content:
-        equired: false
+        equired: true
         type: string
         default: "Some content"
 
