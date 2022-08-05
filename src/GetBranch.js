@@ -35,7 +35,7 @@ class CreateBranch{
             if (NewList.includes(this.inputs.TARGET_BRANCH)){
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
                 this.notice(`Update file: ${this.inputs.FILE}`);
-                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
+                this.warning(`SHA of updated file: ${(await this.CreateFile()).toString()}`);
             } else {
                 this.info("Start Creating branch");
                 this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
@@ -103,7 +103,7 @@ class CreateBranch{
                 path: file,
                 branch: targetBranch,
                 message: 'my commit message',
-                sha: refResponse.data.sha,
+                //sha: refResponse.data.sha,
                 committer: {
                   name: 'zsvs',
                   email: 'stepanezc@gmail.com'
