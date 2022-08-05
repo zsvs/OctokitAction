@@ -21,6 +21,7 @@ on:
       test_input:
         required: false
         type: string
+        default: ''
       content:
         equired: true
         type: string
