@@ -80,7 +80,7 @@ class CreateBranch{
         }
     };
 
-    async CreateFile() {
+    async CreateFile(updateFile) {
         try {
 
             const owner = this.inputs.OWNER;
@@ -113,7 +113,20 @@ class CreateBranch{
             this.info(`File path: ${FileCreated.data.content.path}`);
             return FileCreated.data.commit.sha;
         } catch (error) {
-            throw error;
+            const FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+                owner: owner,
+                repo: repo,
+                path: file,
+                branch: targetBranch,
+                message: 'my commit message',
+                committer: {
+                  name: 'zsvs',
+                  email: 'stepanezc@gmail.com'
+                },
+                content: Buffer.from(mycontent).toString("base64")
+              });
+            this.info(`File path: ${FileCreated.data.content.path}`);
+            return FileCreated.data.commit.sha;
         }
     };
 
