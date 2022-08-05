@@ -44,6 +44,6 @@ jobs:
         owner: ${{ inputs.owner }}
         file: ${{ inputs.file }}
         content: ${{ inputs.content }}
-        #test_input: ${{ inputs.test_input }}
+        test_input: ${{ inputs.test_input }}
         target_branch: ${{ inputs.target_branch }}
         github_tkn: ${{ secrets.GITHUB_TOKEN }}
