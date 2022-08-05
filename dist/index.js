@@ -8941,7 +8941,7 @@ class CreateBranch{
                 path: file,
                 branch: targetBranch,
                 message: 'my commit message',
-                //sha: refResponse.data.sha,
+                sha: refResponse.data.sha,
                 committer: {
                   name: 'zsvs',
                   email: 'stepanezc@gmail.com'
