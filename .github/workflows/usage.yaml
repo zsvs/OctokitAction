@@ -45,4 +45,4 @@ jobs:
         file: ${{ inputs.file }}
         content: ${{ inputs.content }}
         target_branch: ${{ inputs.target_branch }}
-        github_tkn: ${{ secrets.GH_TKN }}
+        github_tkn: ${{ secrets.GITHUB_TOKEN }}
