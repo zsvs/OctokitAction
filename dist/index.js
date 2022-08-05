@@ -8891,24 +8891,18 @@ class CreateBranch{
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
-            let MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
+            const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
                 owner: owner,
                 repo: repo,
             });
 
-            let MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
+            const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
                 owner: owner,
                 repo: repo,
                 ref: `heads/${MainBranchName.data.default_branch}`
             });
 
-            // let NewBranchCreation = this.octokit.rest.git.createRef({
-            //     owner: owner,
-            //     repo: repo,
-            //     ref: `refs/heads/${targetBranch}`,
-            //     sha: MainBranchSHA.data.object.sha,
-            // });
-            let NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
+            const NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
                 owner: owner,
                 repo: repo,
                 ref: `refs/heads/${targetBranch}`,
@@ -8937,10 +8931,10 @@ class CreateBranch{
                 owner: owner,
                 repo: repo,
                 path: file,
-                ref: targetBranch,
+                ref: targetBranch
               });
 
-            let FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+            const FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
                 owner: owner,
                 repo: repo,
                 path: file,
