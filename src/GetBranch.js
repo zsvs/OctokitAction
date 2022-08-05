@@ -23,7 +23,7 @@ class CreateBranch{
 
     async run() {
         try {
-
+            this.info(`Test input value: ${this.inputs.TEST_INPUT}`)
             if (this.inputs.TEST_INPUT.length == 0) {
                 this.warning("No TEST_INPUT passed");
             }
