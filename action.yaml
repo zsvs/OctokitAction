@@ -24,7 +24,6 @@ inputs:
   content:
     equired: true
     type: string
-    default: "Some content"
 
 runs:
   using: "node12"

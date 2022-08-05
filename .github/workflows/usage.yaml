@@ -25,7 +25,6 @@ on:
       content:
         equired: true
         type: string
-        default: "Some content"
 
 jobs:
 
