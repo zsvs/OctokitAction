@@ -21,6 +21,10 @@ inputs:
     required: false
     type: string
     default: ''
+  content:
+    equired: false
+    type: string
+    default: "Some content"
 
 runs:
   using: "node12"

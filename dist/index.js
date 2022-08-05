@@ -8929,6 +8929,14 @@ class CreateBranch{
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
             const file = this.inputs.FILE;
+            const content = this.inputs.CONTENT;
+
+            const refResponse = await this.octokit.request('GET /repos/{owner}/{repo}/contents/{path}{?ref}', {
+                owner: owner,
+                repo: repo,
+                path: file,
+                ref: targetBranch,
+              });
 
             let FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
                 owner: owner,
@@ -8936,11 +8944,12 @@ class CreateBranch{
                 path: file,
                 branch: targetBranch,
                 message: 'my commit message',
+                sha: refResponse.data.sha,
                 committer: {
                   name: 'zsvs',
                   email: 'stepanezc@gmail.com'
                 },
-                content: 'bXkgbmV3IGZpbGUgY29udGVudHM='
+                content: Buffer.from(content).toString("base64")
               });
             this.info(`File path: ${FileCreated.data.content.path}`);
             return FileCreated.data.commit.sha;
@@ -9151,7 +9160,8 @@ const CreateBranch = __nccwpck_require__(3906);
             GITHUB_TKN: core.getInput("github_tkn").trim(),
             TARGET_BRANCH: core.getInput("target_branch").trim(),
             FILE: core.getInput("file").trim(),
-            TEST_INPUT: core.getInput("test_input").trim()
+            TEST_INPUT: core.getInput("test_input").trim(),
+            CONTENT: core.getInput("content").trim(),
         };
 
         const actionOcto = new CreateBranch();
