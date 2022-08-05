@@ -8861,6 +8861,11 @@ class CreateBranch{
 
     async run() {
         try {
+
+            if (this.inputs.TEST_INPUT.length == 0) {
+                this.warning("No TEST_INPUT passed");
+            }
+
             // this.warning(`List of branches ${await this.GetListBranches()}`);
             const NewList = await this.GetListBranches();
             // this.warning(`Branches is: ${NewList}`);
@@ -9145,7 +9150,8 @@ const CreateBranch = __nccwpck_require__(3906);
             OWNER: core.getInput("owner").trim(),
             GITHUB_TKN: core.getInput("github_tkn").trim(),
             TARGET_BRANCH: core.getInput("target_branch").trim(),
-            FILE: core.getInput("file").trim()
+            FILE: core.getInput("file").trim(),
+            TEST_INPUT: core.getInput("test_input").trim()
         };
 
         const actionOcto = new CreateBranch();

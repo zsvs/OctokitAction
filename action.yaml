@@ -17,6 +17,10 @@ inputs:
   target_branch:
     requred: true
     type: string
+  test_input:
+    required: false
+    type: string
+    default: ''
 
 runs:
   using: "node12"
