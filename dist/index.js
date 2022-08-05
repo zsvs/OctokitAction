@@ -8872,6 +8872,7 @@ class CreateBranch{
 
             if (NewList.includes(this.inputs.TARGET_BRANCH)){
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
+                this.notice(`Update file: ${this.inputs.FILE}`);
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             } else {
                 this.info("Start Creating branch");
