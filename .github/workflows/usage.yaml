@@ -44,5 +44,6 @@ jobs:
         repo: ${{ inputs.repo }}
         owner: ${{ inputs.owner }}
         file: ${{ inputs.file }}
+        content: ${{ inputs.content }}
         target_branch: ${{ inputs.target_branch }}
         github_tkn: ${{ secrets.GH_TKN }}
