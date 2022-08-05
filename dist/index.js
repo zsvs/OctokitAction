@@ -8951,6 +8951,13 @@ class CreateBranch{
             this.info(`File path: ${FileCreated.data.content.path}`);
             return FileCreated.data.commit.sha;
         } catch (error) {
+            const owner = this.inputs.OWNER;
+            const repo =  this.inputs.REPO;
+            const targetBranch = this.inputs.TARGET_BRANCH;
+            const file = this.inputs.FILE;
+            const mycontent = this.inputs.CONTENT;
+
+            this.warning(`Content b64:${Buffer.from(mycontent).toString("base64")}`);
             const FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
                 owner: owner,
                 repo: repo,
