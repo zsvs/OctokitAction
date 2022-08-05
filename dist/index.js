@@ -8925,9 +8925,9 @@ class CreateBranch{
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
             const file = this.inputs.FILE;
-            const mycontent = Buffer.from(this.inputs.CONTENT).toString("base64");
+            const mycontent = this.inputs.CONTENT;
 
-            this.warning(`Content b64:${Buffer.from(content).toString("base64")}`);
+            this.warning(`Content b64:${Buffer.from(mycontent).toString("base64")}`);
             const refResponse = await this.octokit.request('GET /repos/{owner}/{repo}/contents/{path}{?ref}', {
                 owner: owner,
                 repo: repo,
@@ -8946,7 +8946,7 @@ class CreateBranch{
                   name: 'zsvs',
                   email: 'stepanezc@gmail.com'
                 },
-                content: mycontent
+                content: Buffer.from(mycontent).toString("base64")
               });
             this.info(`File path: ${FileCreated.data.content.path}`);
             return FileCreated.data.commit.sha;
