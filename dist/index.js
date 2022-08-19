@@ -9108,7 +9108,7 @@ class Blob{
             mode: "100644",
             type: "blob"
         };
-        return treeBlobStructure
+        return file.sha
     };
 };
 
