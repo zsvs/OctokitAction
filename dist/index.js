@@ -8884,7 +8884,7 @@ class CreateBranch{
 
             this.warning("BULK COMMIT AHEAD");
             const FilesToCommit = this.inputs.FILES.split(" "); //[this.inputs.file1, this.inputs.file2];
-            this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.content, this.inputs.TARGET_BRANCH);
+            this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.CONTENT, this.inputs.TARGET_BRANCH);
         } catch (error) {
             throw error;
         }
@@ -8995,12 +8995,12 @@ class CreateBranch{
         const encoding = "utf-8";
         filepath.forEach(filename => {
             contentList.forEach(content => {
-                BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, repo, owner).CreateBlob(filename, content, encoding));
+                BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.repo, this.owner).CreateBlob(filename, content, encoding));
             });
         });
 
         const TreesFabric = new TreesFactory();
-        TreesFabric.CreateInstance(GHToken, repo, owner).CreateTree(BlobsList, message, trunk)
+        TreesFabric.CreateInstance(GHToken, this.repo, this.owner).CreateTree(BlobsList, message, trunk)
     };
 
     async GetListBranches() {
