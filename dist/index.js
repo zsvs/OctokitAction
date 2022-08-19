@@ -8989,7 +8989,7 @@ class CreateBranch{
 
     async CreateBulkCommit(GHToken, filepath, message, contentList, trunk) {
 
-        BlobsFabric = new FileFactory();
+        const BlobsFabric = new FileFactory();
         let BlobsList = [];
 
         const encoding = "utf-8";
@@ -8999,7 +8999,7 @@ class CreateBranch{
             });
         });
 
-        TreesFabric = new TreesFactory();
+        const TreesFabric = new TreesFactory();
         TreesFabric.CreateInstance(GHToken, repo, owner).CreateTree(BlobsList, message, trunk)
     };
 
