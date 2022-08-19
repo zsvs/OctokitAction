@@ -9102,7 +9102,7 @@ class Blob{
             content: content,
             encoding: encoding
         });
-        core.warning(`File created: ${await file.sha}`);
+        core.warning(`File created: ${file.sha}`);
         const treeBlobStructure = {
             path: filepath,
             sha: file.sha,
