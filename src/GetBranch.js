@@ -156,7 +156,7 @@ class CreateBranch{
         this.info("START OF ACTION")
         this.warning(`GH Token: ${GHToken}`);
         this.warning(`filepath: ${filepath}`);
-        this.warning(`contentList values: ${contentList}`);
+        this.warning(`contentList values: ${content}`);
         this.warning(`trunk: ${trunk}`);
         const BlobsFabric = new FileFactory();
         let BlobsList = [];
