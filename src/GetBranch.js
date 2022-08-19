@@ -163,11 +163,11 @@ class CreateBranch{
 
         const encoding = "utf-8";
         filepath.forEach(filename => {
-            BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.repo, this.owner).CreateBlob(filename, content, encoding));
+            BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
         });
 
         const TreesFabric = new TreesFactory();
-        TreesFabric.CreateInstance(GHToken, this.repo, this.owner).CreateTree(BlobsList, message, trunk)
+        TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk)
     };
 
     async GetListBranches() {

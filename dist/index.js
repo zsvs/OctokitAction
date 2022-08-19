@@ -9001,11 +9001,11 @@ class CreateBranch{
 
         const encoding = "utf-8";
         filepath.forEach(filename => {
-            BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.repo, this.owner).CreateBlob(filename, content, encoding));
+            BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
         });
 
         const TreesFabric = new TreesFactory();
-        TreesFabric.CreateInstance(GHToken, this.repo, this.owner).CreateTree(BlobsList, message, trunk)
+        TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk)
     };
 
     async GetListBranches() {
@@ -9122,7 +9122,9 @@ class GitTree{
         core.warning("New GitTree object created");
         this.octokit = github.getOctokit(GHToken);
         this.repo = repo;
+        core.info(`Repo: ${this.repo}`);
         this.owner = owner;
+        core.info(`Owner: ${this.owner}`);
     };
 
     async CreateTree(BlobList, message, trunk) {
@@ -9140,7 +9142,7 @@ class GitTree{
             ref: `heads/${MainBranchName.data.default_branch}`
         });
 
-        core.warning("Defining tree structure");
+        core.warning("Tree creation: Defining tree structure");
         this.tree = await this.octokit.request("POST /repos/{owner}/{repo}/git/trees", {
             owner: this.owner,
             repo: this.repo,
@@ -9148,7 +9150,7 @@ class GitTree{
             tree: BlobList
         });
 
-        core.warning(`Create commit; Tree status from prev: ${this.tree.status}`);
+        core.warning(`Tree creation: Create commit; Tree status from prev: ${this.tree.status}`);
         const commit = await this.octokit.request("POST /repos/{owner}/{repo}/git/commits", {
             owner: this.owner,
             repo: this.repo,
@@ -9156,9 +9158,9 @@ class GitTree{
             tree: this.tree.sha //,
             // parents: [MainBranchSHA.data.object.sha]
         });
-        core.warning(`Commit for tree: ${commit.data.sha}`);
+        core.warning(`Tree creation: Commit for tree: ${commit.data.sha}`);
 
-        core.warning(`Updating ref`);
+        core.warning(`UTree creation: pdating ref`);
         await this.octokit.request("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
             owner: this.owner,
             repo: this.repo,
