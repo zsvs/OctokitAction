@@ -49,7 +49,7 @@ class CreateBranch{
             this.warning(`Original source files: ${this.inputs.FILES}`);
             this.warning(`FilesToCommit: ${FilesToCommit}`);
 
-            this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.CONTENT, this.inputs.TARGET_BRANCH);
+            await this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.CONTENT, this.inputs.TARGET_BRANCH);
         } catch (error) {
             throw error;
         }
@@ -164,14 +164,14 @@ class CreateBranch{
         const encoding = "utf-8";
         filepath.forEach(filename => {
             this.info(`File name for blob: ${filename}`);
-            BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
+            BlobsList.push(await BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
         });
         BlobsList.forEach(element => {
             this.warning(`Check blobs: ${element}`);
         });
 
         const TreesFabric = new TreesFactory();
-        TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk)
+        await TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk)
     };
 
     async GetListBranches() {
