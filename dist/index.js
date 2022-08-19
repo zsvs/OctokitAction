@@ -9160,7 +9160,7 @@ class GitTree{
             owner: this.owner,
             repo: this.repo,
             message: message,
-            tree: this.tree.sha //,
+            tree: [this.tree.sha] //,
             // parents: [MainBranchSHA.data.object.sha]
         });
         core.warning(`Tree creation: Commit for tree: ${commit.data.sha}`);
