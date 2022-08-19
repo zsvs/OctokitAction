@@ -11,7 +11,7 @@ class Blob{
     };
 
     async CreateBlob(filepath, content, encoding) {
-        try{
+        // try{
             core.warning("Blob creation process started");
             const file = await this.octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
                 owner: this.owner,
@@ -28,9 +28,9 @@ class Blob{
             };
             core.warning(`Blob struct: ${treeBlobStructure.path} ${treeBlobStructure.sha} ${treeBlobStructure.mode} ${treeBlobStructure.type}`);
             return treeBlobStructure;
-        } catch (error) {
-            throw error;
-        }
+        // } catch (error) {
+        //     throw error;
+        // }
     };
 };
 
