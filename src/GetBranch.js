@@ -164,14 +164,14 @@ class CreateBranch{
         const encoding = "utf-8";
         filepath.forEach(filename => {
             this.info(`File name for blob: ${filename}`);
-            BlobsList.push(await BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
+            BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
         });
         BlobsList.forEach(element => {
             this.warning(`Check blobs: ${element}`);
         });
 
         const TreesFabric = new TreesFactory();
-        await TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk)
+        TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk);
     };
 
     async GetListBranches() {
