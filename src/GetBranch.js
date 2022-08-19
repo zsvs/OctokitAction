@@ -53,22 +53,13 @@ class CreateBranch{
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
-            const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
-                owner: owner,
-                repo: repo,
-            });
-
-            const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
-                owner: owner,
-                repo: repo,
-                ref: `heads/${MainBranchName.data.default_branch}`
-            });
+            const MainBranchSHA = await GetMainSHA();
 
             const NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
                 owner: owner,
                 repo: repo,
                 ref: `refs/heads/${targetBranch}`,
-                sha: MainBranchSHA.data.object.sha
+                sha: MainBranchSHA
             });
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
@@ -136,6 +127,40 @@ class CreateBranch{
             return FileCreated.data.commit.sha;
         }
     };
+    async GetMainSHA() {
+        const owner = this.inputs.OWNER;
+        const repo =  this.inputs.REPO;
+        const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
+            owner: owner,
+            repo: repo,
+        });
+
+        const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
+            owner: owner,
+            repo: repo,
+            ref: `heads/${MainBranchName.data.default_branch}`
+        });
+
+        return MainBranchSHA.data.object.sha
+    };
+
+    async CreateTree(files) {
+
+        const MainBranchSHA = await GetMainSHA()
+        const owner = this.inputs.OWNER;
+        const repo =  this.inputs.REPO;
+        let treeItems = []; // List of items to push
+        treeItems.concat(files)
+        let tree = await this.octokit.trees.create({
+            owner: owner,
+            repo: repo,
+            tree: treeItems,
+            base_tree: MainBranchSHA
+        });
+        //! For file content we need create blob object
+        //! Must create commit for push tree
+
+    }
 
     async GetListBranches() {
         const owner = this.inputs.OWNER;
