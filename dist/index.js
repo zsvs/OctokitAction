@@ -9001,6 +9001,7 @@ class CreateBranch{
 
         const encoding = "utf-8";
         filepath.forEach(filename => {
+            this.info(`File name for blob: ${filename}`);
             BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
         });
 
