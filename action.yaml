@@ -8,7 +8,10 @@ inputs:
   github_tkn:
     requred: true
     type: string
-  file:
+  file1:
+    requred: true
+    type: string
+  file2:
     requred: true
     type: string
   owner:

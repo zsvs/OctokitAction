@@ -1,5 +1,5 @@
-﻿const core = require("@actions/core");
-const CreateBranch = require("./GetBranch");
+﻿import { core } from "@actions/core";
+import  CreateBranch  from "./GetBranch";
 
 (async () =>{
     try {
@@ -8,9 +8,11 @@ const CreateBranch = require("./GetBranch");
             OWNER: core.getInput("owner").trim(),
             GITHUB_TKN: core.getInput("github_tkn").trim(),
             TARGET_BRANCH: core.getInput("target_branch").trim(),
-            FILE: core.getInput("file").trim(),
+            FILE1: core.getInput("file1").trim(),
+            FILE2: core.getInput("file2").trim(),
             TEST_INPUT: core.getInput("test_input").trim(),
             CONTENT: core.getInput("content").trim(),
+
         };
 
         const actionOcto = new CreateBranch();

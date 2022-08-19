@@ -8833,170 +8833,6 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 3906:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const github = __nccwpck_require__(4778);
-
-// use an async function for the main tasks
-class CreateBranch{
-    constructor() {
-        this.inputs = {};
-    };
-
-    setup(inputs) {
-        for(const [key, value] of Object.entries(inputs)) {
-            this.inputs[key] = value;
-        };
-        this.octokit = github.getOctokit(this.inputs.GITHUB_TKN);
-    };
-
-    setLogger({notice, info, output, warning, error}) {
-        this.notice = notice;
-        this.info = info;
-        this.output = output;
-        this.warning = warning;
-        this.error = error;
-    };
-
-    async run() {
-        try {
-            this.info(`Test input value: ${this.inputs.TEST_INPUT}`)
-            if (this.inputs.TEST_INPUT.length == 0) {
-                this.warning("No TEST_INPUT passed");
-            }
-
-            // this.warning(`List of branches ${await this.GetListBranches()}`);
-            const NewList = await this.GetListBranches();
-            // this.warning(`Branches is: ${NewList}`);
-
-            if (NewList.includes(this.inputs.TARGET_BRANCH)){
-                this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
-                this.notice(`Update file: ${this.inputs.FILE}`);
-                this.warning(`SHA of updated file: ${(await this.CreateFile()).toString()}`);
-            } else {
-                this.info("Start Creating branch");
-                this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
-                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
-            }
-
-        } catch (error) {
-            throw error;
-        }
-    };
-
-    async CreateBranch() {
-        try {
-
-            const owner = this.inputs.OWNER;
-            const repo =  this.inputs.REPO;
-            const targetBranch = this.inputs.TARGET_BRANCH;
-            const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
-                owner: owner,
-                repo: repo,
-            });
-
-            const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
-                owner: owner,
-                repo: repo,
-                ref: `heads/${MainBranchName.data.default_branch}`
-            });
-
-            const NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
-                owner: owner,
-                repo: repo,
-                ref: `refs/heads/${targetBranch}`,
-                sha: MainBranchSHA.data.object.sha
-            });
-
-            this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
-            this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
-            return NewBranchCreation.data.ref;
-
-        } catch (error) {
-            throw error;
-        }
-    };
-
-    async CreateFile(updateFile) {
-        try {
-
-            const owner = this.inputs.OWNER;
-            const repo =  this.inputs.REPO;
-            const targetBranch = this.inputs.TARGET_BRANCH;
-            const file = this.inputs.FILE;
-            const mycontent = this.inputs.CONTENT;
-
-            this.warning(`Content b64:${Buffer.from(mycontent).toString("base64")}`);
-            const refResponse = await this.octokit.request('GET /repos/{owner}/{repo}/contents/{path}{?ref}', {
-                owner: owner,
-                repo: repo,
-                path: file,
-                ref: targetBranch
-              });
-
-            const FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-                owner: owner,
-                repo: repo,
-                path: file,
-                branch: targetBranch,
-                message: 'my commit message',
-                sha: refResponse.data.sha,
-                committer: {
-                  name: 'zsvs',
-                  email: 'stepanezc@gmail.com'
-                },
-                content: Buffer.from(mycontent).toString("base64")
-              });
-            this.info(`File path: ${FileCreated.data.content.path}`);
-            return FileCreated.data.commit.sha;
-        } catch (error) {
-            const owner = this.inputs.OWNER;
-            const repo =  this.inputs.REPO;
-            const targetBranch = this.inputs.TARGET_BRANCH;
-            const file = this.inputs.FILE;
-            const mycontent = this.inputs.CONTENT;
-
-            this.warning(`Content b64:${Buffer.from(mycontent).toString("base64")}`);
-            const FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-                owner: owner,
-                repo: repo,
-                path: file,
-                branch: targetBranch,
-                message: 'my commit message',
-                committer: {
-                  name: 'zsvs',
-                  email: 'stepanezc@gmail.com'
-                },
-                content: Buffer.from(mycontent).toString("base64")
-              });
-            this.info(`File path: ${FileCreated.data.content.path}`);
-            return FileCreated.data.commit.sha;
-        }
-    };
-
-    async GetListBranches() {
-        const owner = this.inputs.OWNER;
-        const repo =  this.inputs.REPO;
-        let ListBranches = await this.octokit.request('GET /repos/{owner}/{repo}/branches', {
-            owner: owner,
-            repo: repo
-          });
-
-        let branches = [];
-        ListBranches.data.forEach(element => {
-            branches.push(element.name)
-        });
-        this.info(`List of branches: ${branches}`)
-        return branches;
-    };
-}
-
-module.exports = CreateBranch;
-
-
-/***/ }),
-
 /***/ 3119:
 /***/ ((module) => {
 
@@ -9158,44 +8994,357 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
-const core = __nccwpck_require__(7942);
-const CreateBranch = __nccwpck_require__(3906);
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(7942);
+// EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
+var github = __nccwpck_require__(4778);
+;// CONCATENATED MODULE: ./src/fabrics/AbstractFactory.js
+class AbstractFactory {
+    CreateInstance() {
+        throw "You must override this method"
+    }
+}
+
+/* harmony default export */ const fabrics_AbstractFactory = (AbstractFactory);
+;// CONCATENATED MODULE: ./src/git_trees/tree.js
+
+
+class GitTree{
+    constructor(GHToken, repo, owner) {
+        this.octokit = github.github.getOctokit(GHToken);
+        this.repo = repo;
+        this.owner = owner;
+    };
+
+    async CreateTree(BlobList, message, trunk) {
+        const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
+            owner: this.owner,
+            repo: this.repo
+        });
+
+        const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
+            owner: this.owner,
+            repo: this.repo,
+            ref: `heads/${MainBranchName.data.default_branch}`
+        });
+
+        this.tree = await this.octokit.request("POST /repos/{owner}/{repo}/git/trees", {
+            owner: this.owner,
+            repo: this.repo,
+            base_tree: MainBranchSHA.data.object.sha,
+            tree: BlobList
+        });
+
+        const commit = await this.octokit.request("POST /repos/{owner}/{repo}/git/commits", {
+            owner: this.owner,
+            repo: this.repo,
+            message: message,
+            tree: this.tree.sha,
+            parents: [MainBranchSHA.data.object.sha,]
+        });
+
+        await this.octokit.request("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
+            owner: this.owner,
+            repo: this.repo,
+            ref: `heads/${trunk}`
+        });
+    };
+};
+
+/* harmony default export */ const tree = (GitTree);
+;// CONCATENATED MODULE: ./src/fabrics/TreesFactory.js
+
+
+
+class TreesFactory extends fabrics_AbstractFactory{
+    CreateInstance(GHToken, repo, owner) {
+        return new tree(GHToken, repo, owner)
+    };
+};
+
+/* harmony default export */ const fabrics_TreesFactory = (TreesFactory);
+;// CONCATENATED MODULE: ./src/git_trees/blob.js
+
+
+class Blob{
+    constructor(Name, GHToken, repo, owner) {
+        this.octokit = github.github.getOctokit(GHToken);
+        this.Name = Name;
+        this.repo = repo;
+        this.owner = owner;
+    };
+
+    async CreateBlob(filepath, content, encoding) {
+        const file = await this.octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
+            owner: this.owner,
+            repo: this.repo,
+            content: content,
+            encoding: encoding
+        });
+        return {
+            path: filepath,
+            sha: file.sha,
+            mode: "100644",
+            type: "blob"
+        }
+    };
+};
+
+/* harmony default export */ const blob = (Blob);
+;// CONCATENATED MODULE: ./src/fabrics/FileFactory.js
+
+
+
+class FileFactory extends fabrics_AbstractFactory{
+    CreateInstance(Name, GHToken, repo, owner) {
+        return new blob(Name, GHToken, repo, owner)
+    };
+};
+
+/* harmony default export */ const fabrics_FileFactory = (FileFactory);
+;// CONCATENATED MODULE: ./src/GetBranch.js
+
+
+
+
+// use an async function for the main tasks
+class CreateBranch{
+    constructor() {
+        this.inputs = {};
+    };
+
+    setup(inputs) {
+        for(const [key, value] of Object.entries(inputs)) {
+            this.inputs[key] = value;
+        };
+        this.octokit = (0,github.getOctokit)(this.inputs.GITHUB_TKN);
+    };
+
+    setLogger({notice, info, output, warning, error}) {
+        this.notice = notice;
+        this.info = info;
+        this.output = output;
+        this.warning = warning;
+        this.error = error;
+    };
+
+    async run() {
+        try {
+            this.info(`Test input value: ${this.inputs.TEST_INPUT}`)
+            if (this.inputs.TEST_INPUT.length == 0) {
+                this.warning("No TEST_INPUT passed");
+            }
+
+            // this.warning(`List of branches ${await this.GetListBranches()}`);
+            const NewList = await this.GetListBranches();
+            // this.warning(`Branches is: ${NewList}`);
+
+            if (NewList.includes(this.inputs.TARGET_BRANCH)){
+                this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
+                this.notice(`Update file: ${this.inputs.FILE}`);
+                this.warning(`SHA of updated file: ${(await this.CreateFile()).toString()}`);
+            } else {
+                this.info("Start Creating branch");
+                this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
+                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
+            }
+
+            this.warning("BULK COMMIT AHEAD");
+            const FilesToCommit = [this.inputs.file1, this.inputs.file2];
+            this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.content, this.inputs.TARGET_BRANCH);
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    async CreateBranch() {
+        try {
+
+            const owner = this.inputs.OWNER;
+            const repo =  this.inputs.REPO;
+            const targetBranch = this.inputs.TARGET_BRANCH;
+            const MainBranchSHA = await GetMainSHA();
+
+            const NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
+                owner: owner,
+                repo: repo,
+                ref: `refs/heads/${targetBranch}`,
+                sha: MainBranchSHA
+            });
+
+            this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
+            this.info(`SHA of main branch: ${MainBranchSHA.data.object.sha}`);
+            return NewBranchCreation.data.ref;
+
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    async CreateFile(updateFile) {
+        try {
+
+            const owner = this.inputs.OWNER;
+            const repo =  this.inputs.REPO;
+            const targetBranch = this.inputs.TARGET_BRANCH;
+            const file = this.inputs.FILE;
+            const mycontent = this.inputs.CONTENT;
+
+            this.warning(`Content b64:${Buffer.from(mycontent).toString("base64")}`);
+            const refResponse = await this.octokit.request('GET /repos/{owner}/{repo}/contents/{path}{?ref}', {
+                owner: owner,
+                repo: repo,
+                path: file,
+                ref: targetBranch
+              });
+
+            const FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+                owner: owner,
+                repo: repo,
+                path: file,
+                branch: targetBranch,
+                message: 'my commit message',
+                sha: refResponse.data.sha,
+                committer: {
+                  name: 'zsvs',
+                  email: 'stepanezc@gmail.com'
+                },
+                content: Buffer.from(mycontent).toString("base64")
+              });
+            this.info(`File path: ${FileCreated.data.content.path}`);
+            return FileCreated.data.commit.sha;
+        } catch (error) {
+            const owner = this.inputs.OWNER;
+            const repo =  this.inputs.REPO;
+            const targetBranch = this.inputs.TARGET_BRANCH;
+            const file = this.inputs.FILE;
+            const mycontent = this.inputs.CONTENT;
+
+            this.warning(`Content b64:${Buffer.from(mycontent).toString("base64")}`);
+            const FileCreated = await this.octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+                owner: owner,
+                repo: repo,
+                path: file,
+                branch: targetBranch,
+                message: 'my commit message',
+                committer: {
+                  name: 'zsvs',
+                  email: 'stepanezc@gmail.com'
+                },
+                content: Buffer.from(mycontent).toString("base64")
+              });
+            this.info(`File path: ${FileCreated.data.content.path}`);
+            return FileCreated.data.commit.sha;
+        }
+    };
+    async GetMainSHA() {
+        const owner = this.inputs.OWNER;
+        const repo =  this.inputs.REPO;
+        const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
+            owner: owner,
+            repo: repo,
+        });
+
+        const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
+            owner: owner,
+            repo: repo,
+            ref: `heads/${MainBranchName.data.default_branch}`
+        });
+
+        return MainBranchSHA.data.object.sha
+    };
+
+    async CreateBulkCommit(GHToken, filepath, message, contentList, trunk) {
+
+        BlobsFabric = new fabrics_FileFactory();
+        let BlobsList = [];
+
+        const encoding = "utf-8";
+        filepath.forEach(filename => {
+            contentList.forEach(content => {
+                BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, repo, owner).CreateBlob(filename, content, encoding));
+            });
+        });
+
+        TreesFabric = new fabrics_TreesFactory();
+        TreesFabric.CreateInstance(GHToken, repo, owner).CreateTree(BlobsList, message, trunk)
+    };
+
+    async GetListBranches() {
+        const owner = this.inputs.OWNER;
+        const repo =  this.inputs.REPO;
+        let ListBranches = await this.octokit.request('GET /repos/{owner}/{repo}/branches', {
+            owner: owner,
+            repo: repo
+          });
+
+        let branches = [];
+        ListBranches.data.forEach(element => {
+            branches.push(element.name)
+        });
+        this.info(`List of branches: ${branches}`)
+        return branches;
+    };
+}
+
+/* harmony default export */ const GetBranch = (CreateBranch);
+
+;// CONCATENATED MODULE: ./src/index.js
+
+
 
 (async () =>{
     try {
         const inputs = {
-            REPO: core.getInput("repo").trim(),
-            OWNER: core.getInput("owner").trim(),
-            GITHUB_TKN: core.getInput("github_tkn").trim(),
-            TARGET_BRANCH: core.getInput("target_branch").trim(),
-            FILE: core.getInput("file").trim(),
-            TEST_INPUT: core.getInput("test_input").trim(),
-            CONTENT: core.getInput("content").trim(),
+            REPO: core.core.getInput("repo").trim(),
+            OWNER: core.core.getInput("owner").trim(),
+            GITHUB_TKN: core.core.getInput("github_tkn").trim(),
+            TARGET_BRANCH: core.core.getInput("target_branch").trim(),
+            FILE1: core.core.getInput("file1").trim(),
+            FILE2: core.core.getInput("file2").trim(),
+            TEST_INPUT: core.core.getInput("test_input").trim(),
+            CONTENT: core.core.getInput("content").trim(),
+
         };
 
-        const actionOcto = new CreateBranch();
+        const actionOcto = new GetBranch();
         actionOcto.setup(inputs);
         actionOcto.setLogger({
-            notice: core.notice,
-            info: core.info,
-            output: core.setOutput,
-            warning: core.warning,
-            error: core.error,
+            notice: core.core.notice,
+            info: core.core.info,
+            output: core.core.setOutput,
+            warning: core.core.warning,
+            error: core.core.error,
         });
 
         await actionOcto.run();
 
     } catch (error) {
         console.error(error);
-        core.setFailed(error);
+        core.core.setFailed(error);
         throw error;
     }
 })();

@@ -1,4 +1,6 @@
-﻿const github = require('@actions/github');
+﻿import { getOctokit } from '@actions/github';
+import TreesFactory from './fabrics/TreesFactory';
+import FileFactory from './fabrics/FileFactory';
 
 // use an async function for the main tasks
 class CreateBranch{
@@ -10,7 +12,7 @@ class CreateBranch{
         for(const [key, value] of Object.entries(inputs)) {
             this.inputs[key] = value;
         };
-        this.octokit = github.getOctokit(this.inputs.GITHUB_TKN);
+        this.octokit = getOctokit(this.inputs.GITHUB_TKN);
     };
 
     setLogger({notice, info, output, warning, error}) {
@@ -42,6 +44,9 @@ class CreateBranch{
                 this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
             }
 
+            this.warning("BULK COMMIT AHEAD");
+            const FilesToCommit = [this.inputs.file1, this.inputs.file2];
+            this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.content, this.inputs.TARGET_BRANCH);
         } catch (error) {
             throw error;
         }
@@ -144,23 +149,21 @@ class CreateBranch{
         return MainBranchSHA.data.object.sha
     };
 
-    async CreateTree(files) {
+    async CreateBulkCommit(GHToken, filepath, message, contentList, trunk) {
 
-        const MainBranchSHA = await GetMainSHA()
-        const owner = this.inputs.OWNER;
-        const repo =  this.inputs.REPO;
-        let treeItems = []; // List of items to push
-        treeItems.concat(files)
-        let tree = await this.octokit.trees.create({
-            owner: owner,
-            repo: repo,
-            tree: treeItems,
-            base_tree: MainBranchSHA
+        BlobsFabric = new FileFactory();
+        let BlobsList = [];
+
+        const encoding = "utf-8";
+        filepath.forEach(filename => {
+            contentList.forEach(content => {
+                BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, repo, owner).CreateBlob(filename, content, encoding));
+            });
         });
-        //! For file content we need create blob object
-        //! Must create commit for push tree
 
-    }
+        TreesFabric = new TreesFactory();
+        TreesFabric.CreateInstance(GHToken, repo, owner).CreateTree(BlobsList, message, trunk)
+    };
 
     async GetListBranches() {
         const owner = this.inputs.OWNER;
@@ -179,4 +182,4 @@ class CreateBranch{
     };
 }
 
-module.exports = CreateBranch;
+export default CreateBranch;
