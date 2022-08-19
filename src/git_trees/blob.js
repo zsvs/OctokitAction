@@ -26,7 +26,7 @@ class Blob{
                 mode: "100644",
                 type: "blob"
             };
-            core.warning(`Blob struct: ${treeBlobStructure.path}`);
+            core.warning(`Blob struct: ${treeBlobStructure.path} ${treeBlobStructure.sha} ${treeBlobStructure.mode} ${treeBlobStructure.type}`);
             return treeBlobStructure;
         } catch (error) {
             throw error;
