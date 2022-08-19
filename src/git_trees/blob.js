@@ -11,21 +11,25 @@ class Blob{
     };
 
     async CreateBlob(filepath, content, encoding) {
-        core.warning("Blob creation process started");
-        const file = await this.octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
-            owner: this.owner,
-            repo: this.repo,
-            content: content,
-            encoding: encoding
-        });
-        core.warning(`File created: ${file.sha}`);
-        const treeBlobStructure = {
-            path: filepath,
-            sha: file.sha,
-            mode: "100644",
-            type: "blob"
-        };
-        return await treeBlobStructure
+        try{
+            core.warning("Blob creation process started");
+            const file = await this.octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
+                owner: this.owner,
+                repo: this.repo,
+                content: content,
+                encoding: encoding
+            });
+            core.warning(`File created: ${file.sha}`);
+            const treeBlobStructure = {
+                path: filepath,
+                sha: file.sha,
+                mode: "100644",
+                type: "blob"
+            };
+            return treeBlobStructure;
+        } catch (error) {
+            throw error;
+        }
     };
 };
 

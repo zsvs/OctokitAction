@@ -153,25 +153,30 @@ class CreateBranch{
     };
 
     async CreateBulkCommit(GHToken, filepath, message, content, trunk) {
-        this.info("START OF ACTION")
-        this.warning(`GH Token: ${GHToken}`);
-        this.warning(`filepath: ${filepath}`);
-        this.warning(`contentList values: ${content}`);
-        this.warning(`trunk: ${trunk}`);
-        const BlobsFabric = new FileFactory();
-        let BlobsList = [];
+        try {
+            this.info("START OF ACTION")
+            this.warning(`GH Token: ${GHToken}`);
+            this.warning(`filepath: ${filepath}`);
+            this.warning(`contentList values: ${content}`);
+            this.warning(`trunk: ${trunk}`);
+            const BlobsFabric = new FileFactory();
+            let BlobsList = [];
 
-        const encoding = "utf-8";
-        filepath.forEach(filename => {
-            this.info(`File name for blob: ${filename}`);
-            BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
-        });
-        BlobsList.forEach(element => {
-            this.warning(`Check blobs: ${element}`);
-        });
+            const encoding = "utf-8";
+            filepath.forEach(filename => {
+                this.info(`File name for blob: ${filename}`);
+                BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
+            });
+            BlobsList.forEach(element => {
+                this.warning(`Check blobs: ${element}`);
+            });
 
-        const TreesFabric = new TreesFactory();
-        TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk);
+            const TreesFabric = new TreesFactory();
+            TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk);
+        } catch (error) {
+            throw error;
+        }
+
     };
 
     async GetListBranches() {
