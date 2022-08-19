@@ -4,4 +4,4 @@
     }
 }
 
-export default AbstractFactory;
+module.exports = AbstractFactory;
