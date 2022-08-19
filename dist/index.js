@@ -8994,6 +8994,35 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -9019,6 +9048,7 @@ __nccwpck_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(7942);
+var core_default = /*#__PURE__*/__nccwpck_require__.n(core);
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(4778);
 ;// CONCATENATED MODULE: ./src/fabrics/AbstractFactory.js
@@ -9319,30 +9349,30 @@ class CreateBranch{
 (async () =>{
     try {
         const inputs = {
-            REPO: core.core.getInput("repo").trim(),
-            OWNER: core.core.getInput("owner").trim(),
-            GITHUB_TKN: core.core.getInput("github_tkn").trim(),
-            TARGET_BRANCH: core.core.getInput("target_branch").trim(),
-            FILES: core.core.getInput("files").trim(),
-            CONTENT: core.core.getInput("content").trim(),
+            REPO: core_default().getInput("repo").trim(),
+            OWNER: core_default().getInput("owner").trim(),
+            GITHUB_TKN: core_default().getInput("github_tkn").trim(),
+            TARGET_BRANCH: core_default().getInput("target_branch").trim(),
+            FILES: core_default().getInput("files").trim(),
+            CONTENT: core_default().getInput("content").trim(),
 
         };
 
         const actionOcto = new GetBranch();
         actionOcto.setup(inputs);
         actionOcto.setLogger({
-            notice: core.core.notice,
-            info: core.core.info,
-            output: core.core.setOutput,
-            warning: core.core.warning,
-            error: core.core.error,
+            notice: (core_default()).notice,
+            info: (core_default()).info,
+            output: (core_default()).setOutput,
+            warning: (core_default()).warning,
+            error: (core_default()).error,
         });
 
         await actionOcto.run();
 
     } catch (error) {
         console.error(error);
-        core.core.setFailed(error);
+        core_default().setFailed(error);
         throw error;
     }
 })();
