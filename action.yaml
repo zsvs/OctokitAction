@@ -8,10 +8,7 @@ inputs:
   github_tkn:
     requred: true
     type: string
-  file1:
-    requred: true
-    type: string
-  file2:
+  files:
     requred: true
     type: string
   owner:
@@ -20,10 +17,6 @@ inputs:
   target_branch:
     requred: true
     type: string
-  test_input:
-    required: false
-    type: string
-    default: ''
   content:
     equired: true
     type: string

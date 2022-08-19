@@ -25,10 +25,10 @@ class CreateBranch{
 
     async run() {
         try {
-            this.info(`Test input value: ${this.inputs.TEST_INPUT}`)
-            if (this.inputs.TEST_INPUT.length == 0) {
-                this.warning("No TEST_INPUT passed");
-            }
+            // this.info(`Test input value: ${this.inputs.TEST_INPUT}`)
+            // if (this.inputs.TEST_INPUT.length == 0) {
+            //     this.warning("No TEST_INPUT passed");
+            // }
 
             // this.warning(`List of branches ${await this.GetListBranches()}`);
             const NewList = await this.GetListBranches();
@@ -45,7 +45,7 @@ class CreateBranch{
             }
 
             this.warning("BULK COMMIT AHEAD");
-            const FilesToCommit = [this.inputs.file1, this.inputs.file2];
+            const FilesToCommit = this.inputs.FILES.split(" "); //[this.inputs.file1, this.inputs.file2];
             this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.content, this.inputs.TARGET_BRANCH);
         } catch (error) {
             throw error;
