@@ -9102,12 +9102,13 @@ class Blob{
             content: content,
             encoding: encoding
         });
-        return {
+        const treeBlobStructure = {
             path: filepath,
             sha: file.sha,
             mode: "100644",
             type: "blob"
-        }
+        };
+        return treeBlobStructure
     };
 };
 
