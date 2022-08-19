@@ -10,6 +10,7 @@ on:
       files:
         requred: true
         type: string
+        default: TestBulk1.txt TestBulk2.txt
       owner:
         requred: true
         type: string
@@ -21,6 +22,7 @@ on:
       content:
         equired: true
         type: string
+        default: test bulk commit
 
 jobs:
 
