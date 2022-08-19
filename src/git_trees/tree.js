@@ -44,7 +44,7 @@ class GitTree{
         });
         core.warning(`Tree creation: Commit for tree: ${commit.data.sha}`);
 
-        core.warning(`UTree creation: pdating ref`);
+        core.warning(`Tree creation: pdating ref`);
         await this.octokit.request("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
             owner: this.owner,
             repo: this.repo,

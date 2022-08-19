@@ -9102,14 +9102,14 @@ class Blob{
             content: content,
             encoding: encoding
         });
-        core.warning(`File created: ${file.sha}`);
+        core.warning(`File created: ${await file.sha}`);
         const treeBlobStructure = {
             path: filepath,
-            sha: file.sha,
+            sha: await file.sha,
             mode: "100644",
             type: "blob"
         };
-        return treeBlobStructure
+        return  treeBlobStructure
     };
 };
 
@@ -9166,7 +9166,7 @@ class GitTree{
         });
         core.warning(`Tree creation: Commit for tree: ${commit.data.sha}`);
 
-        core.warning(`UTree creation: pdating ref`);
+        core.warning(`Tree creation: pdating ref`);
         await this.octokit.request("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
             owner: this.owner,
             repo: this.repo,

@@ -18,14 +18,14 @@ class Blob{
             content: content,
             encoding: encoding
         });
-        core.warning(`File created: ${file.sha}`);
+        core.warning(`File created: ${await file.sha}`);
         const treeBlobStructure = {
             path: filepath,
-            sha: file.sha,
+            sha: await file.sha,
             mode: "100644",
             type: "blob"
         };
-        return treeBlobStructure
+        return  treeBlobStructure
     };
 };
 
