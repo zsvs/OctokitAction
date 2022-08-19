@@ -46,6 +46,9 @@ class CreateBranch{
 
             this.warning("BULK COMMIT AHEAD");
             const FilesToCommit = this.inputs.FILES.split(" "); //[this.inputs.file1, this.inputs.file2];
+            this.warning(`Original source files: ${this.inputs.FILES}`);
+            this.warning(`FilesToCommit: ${FilesToCommit}`);
+
             this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.CONTENT, this.inputs.TARGET_BRANCH);
         } catch (error) {
             throw error;
@@ -149,7 +152,8 @@ class CreateBranch{
         return MainBranchSHA.data.object.sha
     };
 
-    async CreateBulkCommit(GHToken, filepath, message, contentList, trunk) {
+    async CreateBulkCommit(GHToken, filepath, message, content, trunk) {
+        this.info("START OF ACTION")
         this.warning(`GH Token: ${GHToken}`);
         this.warning(`filepath: ${filepath}`);
         this.warning(`contentList values: ${contentList}`);
@@ -159,9 +163,7 @@ class CreateBranch{
 
         const encoding = "utf-8";
         filepath.forEach(filename => {
-            contentList.forEach(content => {
-                BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.repo, this.owner).CreateBlob(filename, content, encoding));
-            });
+            BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.repo, this.owner).CreateBlob(filename, content, encoding));
         });
 
         const TreesFabric = new TreesFactory();
