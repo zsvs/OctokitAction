@@ -9115,7 +9115,7 @@ class Blob{
                 mode: "100644",
                 type: "blob"
             };
-            core.warning(`Blob struct: ${treeBlobStructure}`);
+            core.warning(`Blob struct: ${treeBlobStructure.path}`);
             return treeBlobStructure;
         } catch (error) {
             throw error;
