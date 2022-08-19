@@ -1,5 +1,5 @@
-﻿import AbstractFactory from "./AbstractFactory";
-import Blob from "../git_trees/blob";
+﻿const AbstractFactory = require("./AbstractFactory");
+const Blob = require("../git_trees/blob");
 
 class FileFactory extends AbstractFactory{
     CreateInstance(Name, GHToken, repo, owner) {
@@ -7,4 +7,4 @@ class FileFactory extends AbstractFactory{
     };
 };
 
-export default FileFactory;
+module.exports = FileFactory;

@@ -1,5 +1,5 @@
-﻿import AbstractFactory from "./AbstractFactory";
-import GitTree from "../git_trees/tree";
+﻿const AbstractFactory = require("./AbstractFactory");
+const GitTree = require("../git_trees/tree");
 
 class TreesFactory extends AbstractFactory{
     CreateInstance(GHToken, repo, owner) {
@@ -7,4 +7,4 @@ class TreesFactory extends AbstractFactory{
     };
 };
 
-export default TreesFactory;
+module.exports = TreesFactory;

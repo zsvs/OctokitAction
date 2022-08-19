@@ -1,6 +1,6 @@
-﻿import { getOctokit } from '@actions/github';
-import TreesFactory from './fabrics/TreesFactory';
-import FileFactory from './fabrics/FileFactory';
+﻿const github = require('@actions/github');
+const TreesFactory = require('./fabrics/TreesFactory');
+const FileFactory = require('./fabrics/FileFactory');
 
 // use an async function for the main tasks
 class CreateBranch{
@@ -12,7 +12,7 @@ class CreateBranch{
         for(const [key, value] of Object.entries(inputs)) {
             this.inputs[key] = value;
         };
-        this.octokit = getOctokit(this.inputs.GITHUB_TKN);
+        this.octokit = github.getOctokit(this.inputs.GITHUB_TKN);
     };
 
     setLogger({notice, info, output, warning, error}) {
@@ -182,4 +182,4 @@ class CreateBranch{
     };
 }
 
-export default CreateBranch;
+module.exports = CreateBranch;

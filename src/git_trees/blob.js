@@ -1,4 +1,4 @@
-﻿import { github } from "@actions/github";
+﻿const github = require('@actions/github');
 
 class Blob{
     constructor(Name, GHToken, repo, owner) {
@@ -24,4 +24,4 @@ class Blob{
     };
 };
 
-export default Blob;
+module.exports = Blob;

@@ -1,4 +1,4 @@
-﻿import { github } from "@actions/github";
+﻿const github = require('@actions/github');
 
 class GitTree{
     constructor(GHToken, repo, owner) {
@@ -42,4 +42,4 @@ class GitTree{
     };
 };
 
-export default GitTree;
+module.exports = GitTree;

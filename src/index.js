@@ -1,5 +1,5 @@
-﻿import  core  from "@actions/core";
-import  CreateBranch  from "./GetBranch";
+﻿const core = require("@actions/core");
+const CreateBranch = require("./GetBranch");
 
 (async () =>{
     try {
