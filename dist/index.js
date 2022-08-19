@@ -9079,9 +9079,11 @@ module.exports = TreesFactory;
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const github = __nccwpck_require__(4778);
+const core = __nccwpck_require__(7942);
 
 class Blob{
     constructor(Name, GHToken, repo, owner) {
+        core.warning("New Blob object created");
         this.octokit = github.getOctokit(GHToken);
         this.Name = Name;
         this.repo = repo;
@@ -9089,6 +9091,7 @@ class Blob{
     };
 
     async CreateBlob(filepath, content, encoding) {
+        core.warning("Blob creation process started");
         const file = await this.octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
             owner: this.owner,
             repo: this.repo,
@@ -9112,15 +9115,18 @@ module.exports = Blob;
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const github = __nccwpck_require__(4778);
+const core = __nccwpck_require__(7942);
 
 class GitTree{
     constructor(GHToken, repo, owner) {
+        core.warning("New GitTree object created");
         this.octokit = github.getOctokit(GHToken);
         this.repo = repo;
         this.owner = owner;
     };
 
     async CreateTree(BlobList, message, trunk) {
+        core.warning(`Tree creation process started`);
         const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
             owner: this.owner,
             repo: this.repo
@@ -9146,7 +9152,7 @@ class GitTree{
             tree: this.tree.sha,
             parents: [MainBranchSHA.data.object.sha,]
         });
-
+        core.warning(`Commit for tree: ${commit.data.sha}`);
         await this.octokit.request("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
             owner: this.owner,
             repo: this.repo,
