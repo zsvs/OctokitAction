@@ -9004,7 +9004,7 @@ class CreateBranch{
             this.info(`File name for blob: ${filename}`);
             BlobsList.push(BlobsFabric.CreateInstance(filename, GHToken, this.inputs.REPO, this.inputs.OWNER).CreateBlob(filename, content, encoding));
         });
-
+        this.warning(`Check blobs: ${BlobsList}`);
         const TreesFabric = new TreesFactory();
         TreesFabric.CreateInstance(GHToken, this.inputs.REPO, this.inputs.OWNER).CreateTree(BlobsList, message, trunk)
     };
