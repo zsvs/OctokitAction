@@ -8872,15 +8872,15 @@ class CreateBranch{
             const NewList = await this.GetListBranches();
             // this.warning(`Branches is: ${NewList}`);
 
-            if (NewList.includes(this.inputs.TARGET_BRANCH)){
-                this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
-                this.notice(`Update file: ${this.inputs.FILE}`);
-                this.warning(`SHA of updated file: ${(await this.CreateFile()).toString()}`);
-            } else {
-                this.info("Start Creating branch");
-                this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
-                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
-            }
+            // if (NewList.includes(this.inputs.TARGET_BRANCH)){
+            //     this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
+            //     this.notice(`Update file: ${this.inputs.FILE}`);
+            //     this.warning(`SHA of updated file: ${(await this.CreateFile()).toString()}`);
+            // } else {
+            //     this.info("Start Creating branch");
+            //     this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
+            //     this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
+            // }
 
             this.warning("BULK COMMIT AHEAD");
             const FilesToCommit = this.inputs.FILES.split(" "); //[this.inputs.file1, this.inputs.file2];
