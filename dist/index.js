@@ -8888,6 +8888,23 @@ class CreateBranch{
         }
     };
 
+    async GetMainSHA() {
+        const owner = this.inputs.OWNER;
+        const repo =  this.inputs.REPO;
+        const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
+            owner: owner,
+            repo: repo,
+        });
+
+        const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
+            owner: owner,
+            repo: repo,
+            ref: `heads/${MainBranchName.data.default_branch}`
+        });
+
+        return MainBranchSHA.data.object.sha
+    };
+
     async CreateBranch() {
         try {
 
@@ -8912,7 +8929,7 @@ class CreateBranch{
         }
     };
 
-    async CreateFile(updateFile) {
+    async CreateFile() {
         try {
 
             const owner = this.inputs.OWNER;
@@ -8967,22 +8984,6 @@ class CreateBranch{
             this.info(`File path: ${FileCreated.data.content.path}`);
             return FileCreated.data.commit.sha;
         }
-    };
-    async GetMainSHA() {
-        const owner = this.inputs.OWNER;
-        const repo =  this.inputs.REPO;
-        const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
-            owner: owner,
-            repo: repo,
-        });
-
-        const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
-            owner: owner,
-            repo: repo,
-            ref: `heads/${MainBranchName.data.default_branch}`
-        });
-
-        return MainBranchSHA.data.object.sha
     };
 
     async CreateBulkCommit(GHToken, filepath, message, content, trunk) {
