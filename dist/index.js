@@ -8911,7 +8911,7 @@ class CreateBranch{
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
-            const MainBranchSHA = await (this.GetMainSHA()).toString();
+            const MainBranchSHA = await this.GetMainSHA();
 
             const NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
                 owner: owner,
