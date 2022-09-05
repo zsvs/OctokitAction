@@ -8869,7 +8869,7 @@ class CreateBranch{
 
             if (NewList.includes(this.inputs.TARGET_BRANCH)){
                 this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
-                this.notice(`Update file: ${this.inputs.FILE}`);
+                this.notice(`Update file: ${this.inputs.FILES}`);
                 this.warning(`SHA of updated file: ${(await this.CreateFile()).toString()}`);
             } else {
                 this.info("Start Creating branch");
@@ -8935,7 +8935,7 @@ class CreateBranch{
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
-            const file = this.inputs.FILE;
+            const file = this.inputs.FILES;
             const mycontent = this.inputs.CONTENT;
 
             this.warning(`Content b64:${Buffer.from(mycontent).toString("base64")}`);
@@ -8965,7 +8965,7 @@ class CreateBranch{
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
-            const file = this.inputs.FILE;
+            const file = this.inputs.FILES;
             const mycontent = this.inputs.CONTENT;
 
             this.warning(`Content b64:${Buffer.from(mycontent).toString("base64")}`);
