@@ -8888,31 +8888,23 @@ class CreateBranch{
         }
     };
 
-    async GetMainSHA() {
-        const owner = this.inputs.OWNER;
-        const repo =  this.inputs.REPO;
-        const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
-            owner: owner,
-            repo: repo,
-        });
-
-        const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
-            owner: owner,
-            repo: repo,
-            ref: `heads/${MainBranchName.data.default_branch}`
-        });
-
-        return MainBranchSHA.data.object.sha
-    };
-
     async CreateBranch() {
         try {
 
             const owner = this.inputs.OWNER;
             const repo =  this.inputs.REPO;
             const targetBranch = this.inputs.TARGET_BRANCH;
-            const MainBranchSHA = await this.GetMainSHA();
 
+            const MainBranchName = await this.octokit.request("GET /repos/{owner}/{repo}", {
+                owner: owner,
+                repo: repo,
+            });
+
+            const MainBranchSHA = await this.octokit.request("GET /repos/{owner}/{repo}/git/refs/{ref}", {
+                owner: owner,
+                repo: repo,
+                ref: `heads/${MainBranchName.data.default_branch}`
+            });
             const NewBranchCreation = await  this.octokit.request('POST /repos/{owner}/{repo}/git/refs', {
                 owner: owner,
                 repo: repo,
