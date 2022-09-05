@@ -8863,31 +8863,31 @@ class CreateBranch{
 
     async run() {
         try {
-            // this.info(`Test input value: ${this.inputs.TEST_INPUT}`)
-            // if (this.inputs.TEST_INPUT.length == 0) {
-            //     this.warning("No TEST_INPUT passed");
-            // }
+            this.info(`Test input value: ${this.inputs.TEST_INPUT}`)
+            if (this.inputs.TEST_INPUT.length == 0) {
+                this.warning("No TEST_INPUT passed");
+            }
 
-            // this.warning(`List of branches ${await this.GetListBranches()}`);
+            this.warning(`List of branches ${await this.GetListBranches()}`);
             const NewList = await this.GetListBranches();
-            // this.warning(`Branches is: ${NewList}`);
+            this.warning(`Branches is: ${NewList}`);
 
-            // if (NewList.includes(this.inputs.TARGET_BRANCH)){
-            //     this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
-            //     this.notice(`Update file: ${this.inputs.FILE}`);
-            //     this.warning(`SHA of updated file: ${(await this.CreateFile()).toString()}`);
-            // } else {
-            //     this.info("Start Creating branch");
-            //     this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
-            //     this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
-            // }
+            if (NewList.includes(this.inputs.TARGET_BRANCH)){
+                this.warning(`Branch ${this.inputs.TARGET_BRANCH} is already exists`);
+                this.notice(`Update file: ${this.inputs.FILE}`);
+                this.warning(`SHA of updated file: ${(await this.CreateFile()).toString()}`);
+            } else {
+                this.info("Start Creating branch");
+                this.warning(`ref of branch: ${(await this.CreateBranch()).toString()}`);
+                this.warning(`sha of created file: ${(await this.CreateFile()).toString()}`);
+            }
 
-            this.warning("BULK COMMIT AHEAD");
-            const FilesToCommit = this.inputs.FILES.split(" "); //[this.inputs.file1, this.inputs.file2];
-            this.warning(`Original source files: ${this.inputs.FILES}`);
-            this.warning(`FilesToCommit: ${FilesToCommit}`);
+            // this.warning("BULK COMMIT AHEAD");
+            // const FilesToCommit = this.inputs.FILES.split(" "); //[this.inputs.file1, this.inputs.file2];
+            // this.warning(`Original source files: ${this.inputs.FILES}`);
+            // this.warning(`FilesToCommit: ${FilesToCommit}`);
 
-            await this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.CONTENT, this.inputs.TARGET_BRANCH);
+            // await this.CreateBulkCommit(this.inputs.GITHUB_TKN, FilesToCommit, "Test bulk commit", this.inputs.CONTENT, this.inputs.TARGET_BRANCH);
         } catch (error) {
             throw error;
         }
