@@ -71,7 +71,7 @@ class CreateBranch{
                 owner: owner,
                 repo: repo,
                 ref: `refs/heads/${targetBranch}`,
-                sha: MainBranchSHA
+                sha: MainBranchSHA.data.object.sha
             });
 
             this.info(`HTTP status of main branch: ${MainBranchSHA.status}`);
