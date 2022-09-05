@@ -8863,11 +8863,6 @@ class CreateBranch{
 
     async run() {
         try {
-            this.info(`Test input value: ${this.inputs.TEST_INPUT}`)
-            if (this.inputs.TEST_INPUT.length == 0) {
-                this.warning("No TEST_INPUT passed");
-            }
-
             this.warning(`List of branches ${await this.GetListBranches()}`);
             const NewList = await this.GetListBranches();
             this.warning(`Branches is: ${NewList}`);
