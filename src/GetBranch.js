@@ -25,6 +25,7 @@ class CreateBranch{
 
     async run() {
         try {
+            this.info(`Github env:\n SERVER_URL: ${process.env.GITHUB_SERVER_URL}, REPO: ${process.env.GITHUB_REPOSITORY}`)
             this.warning(`List of branches ${await this.GetListBranches()}`);
             const NewList = await this.GetListBranches();
             this.warning(`Branches is: ${NewList}`);
