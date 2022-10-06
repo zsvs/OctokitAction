@@ -10,7 +10,7 @@ on:
       files:
         requred: true
         type: string
-        default: TestBulk1.txt TestBulk2.txt
+        default: Test.txt
       owner:
         requred: true
         type: string

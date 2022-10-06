@@ -183,6 +183,9 @@ class CreateBranch{
         this.info(`List of branches: ${branches}`)
         return branches;
     };
+
+    async CreatePullRequest(Version){};
+
 }
 
 module.exports = CreateBranch;
