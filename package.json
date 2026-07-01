@@ -11,7 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@actions/core": "^1.9.0",
-    "@actions/github": "^5.0.3"
-  }
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^5.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zsvs/OctokitAction.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/zsvs/OctokitAction/issues"
+  },
+  "homepage": "https://github.com/zsvs/OctokitAction#readme"
 }

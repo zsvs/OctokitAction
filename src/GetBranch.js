@@ -84,7 +84,19 @@ class CreateBranch{
         }
     };
 
+    async GetActorCommitter() {
+        const actor = process.env.GITHUB_ACTOR;
+        const { data } = await this.octokit.request('GET /users/{username}', {
+            username: actor
+        });
+        return {
+            name: data.name || data.login,
+            email: data.email || `${data.id}+${data.login}@users.noreply.github.com`
+        };
+    };
+
     async CreateFile() {
+        const committer = await this.GetActorCommitter();
         try {
 
             const owner = this.inputs.OWNER;
@@ -106,12 +118,9 @@ class CreateBranch{
                 repo: repo,
                 path: file,
                 branch: targetBranch,
-                message: 'my commit message',
+                message: 'File created by OctokitAction',
                 sha: refResponse.data.sha,
-                committer: {
-                  name: 'zsvs',
-                  email: 'stepanezc@gmail.com'
-                },
+                committer: committer,
                 content: Buffer.from(mycontent).toString("base64")
               });
             this.info(`File path: ${FileCreated.data.content.path}`);
@@ -129,11 +138,8 @@ class CreateBranch{
                 repo: repo,
                 path: file,
                 branch: targetBranch,
-                message: 'my commit message',
-                committer: {
-                  name: 'zsvs',
-                  email: 'stepanezc@gmail.com'
-                },
+                message: 'File created by OctokitAction',
+                committer: committer,
                 content: Buffer.from(mycontent).toString("base64")
               });
             this.info(`File path: ${FileCreated.data.content.path}`);
